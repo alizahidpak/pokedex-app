@@ -139,6 +139,7 @@ button {
   position: relative;
   gap: 2rem;
   align-items: center;
+  padding-right: 1rem;
 }
 
 .moves-list ul,
