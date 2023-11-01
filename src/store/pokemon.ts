@@ -108,7 +108,7 @@ class PokemonModule extends VuexModule {
   }
 
   @Mutation
-  SET_SELECTED_POKEMON(pokemon: PokemonType) {
+  SET_SELECTED_POKEMON(pokemon: PokemonType | null) {
     this.selectedPokemon = pokemon;
   }
 

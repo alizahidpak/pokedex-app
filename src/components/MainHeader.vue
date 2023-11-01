@@ -39,6 +39,7 @@ export default class MainHeader extends Vue {
 
   goBack() {
     this.$router.go(-1);
+    pokemonStore.SET_SELECTED_POKEMON(null);
   }
 }
 </script>
