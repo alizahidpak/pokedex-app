@@ -58,10 +58,13 @@ input {
 }
 
 .clear-button {
+  width: 4.8rem;
+  height: 4.8rem;
   background: none;
   border: none;
   cursor: pointer;
   transition: 0.5s;
-  font-size: 2rem;
+  color: #555;
+  font-size: 3.2rem;
 }
 </style>

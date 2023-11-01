@@ -9,7 +9,7 @@ Pokedex App is a simple web application that uses the [PokeAPI](https://pokeapi.
 - See pokemon details
 - Save pokemons to your favorites list
 
-✨ [Demo](https://#) ✨
+✨ [Demo](https://https://pokedexali.netlify.app/) ✨
 
 ## Project Setup
 
