@@ -2,6 +2,7 @@
   <header>
     <h1>Your Favorite Pokémon</h1>
     <SearchBar
+      :font-size="'1rem'"
       :padding="'0'"
       :placeholder="'Find in your favorites'"
       @input="onSearchTermChanged"
@@ -40,5 +41,22 @@ h1 {
   font-size: 24px;
   margin-bottom: 10px;
   white-space: nowrap;
+}
+
+@media (max-width: 1024px) {
+  header {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  header {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  h1 {
+    text-align: center;
+  }
 }
 </style>

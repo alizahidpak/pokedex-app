@@ -51,5 +51,7 @@ header {
   font-size: 1.5rem;
   font-weight: bold;
   gap: 2rem;
+  padding-bottom: 32px;
+  border-bottom: 1px solid #f1f1f1;
 }
 </style>

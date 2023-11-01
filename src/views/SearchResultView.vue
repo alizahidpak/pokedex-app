@@ -41,7 +41,6 @@ export default class PokemonSearchResult extends Vue {
 <style lang="scss" scoped>
 main {
   display: flex;
-  //justify-content: center;
   align-items: center;
   height: 100%;
 }

@@ -3,7 +3,7 @@
     <input
       v-model="query"
       :placeholder="placeholder"
-      :style="{ padding: padding }"
+      :style="{ padding: padding, fontSize: fontSize }"
       autofocus
     />
     <button class="clear-button" @click="clearSearch">X</button>
@@ -19,6 +19,7 @@ export default class SearchBar extends Vue {
   query = "";
   @Prop({ default: "Search" }) placeholder!: string;
   @Prop({ default: "18px 0" }) padding!: string;
+  @Prop({ default: "1.2rem" }) fontSize!: string;
 
   debouncedInput = debounce((query: string) => {
     this.$emit("input", query);
@@ -54,7 +55,6 @@ input {
   outline: none;
   border-radius: 5px;
   background-color: $input-bg-color;
-  font-size: 1.2rem;
 }
 
 .clear-button {
@@ -65,6 +65,6 @@ input {
   cursor: pointer;
   padding: 0;
   transition: 0.5s;
-  font-size: 1.5rem;
+  font-size: 1.4rem;
 }
 </style>
