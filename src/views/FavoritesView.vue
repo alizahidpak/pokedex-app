@@ -1,7 +1,13 @@
 <template>
-  <main class="container">
+  <main class="flex-col">
     <FavoritesHeader @search="filterFavorites" />
-    <BaseTable :pokemon="favorites" />
+    <div class="container">
+      <h2 v-if="noResults && favorites.length > 0">No results found</h2>
+      <h2 v-else-if="favorites.length === 0">
+        You have no pokémon in your favorites
+      </h2>
+      <BaseTable v-else :pokemon="favorites" />
+    </div>
   </main>
 </template>
 
@@ -9,6 +15,7 @@
 import { Component, Vue } from "vue-property-decorator";
 import { BaseTable, FavoritesHeader } from "@/components";
 import { pokemonStore } from "@/store/pokemon";
+import type { PokemonType } from "@/types";
 
 @Component({
   components: {
@@ -17,7 +24,8 @@ import { pokemonStore } from "@/store/pokemon";
   },
 })
 export default class PokemonFavorites extends Vue {
-  filteredFavorites = [];
+  filteredFavorites: PokemonType[] = [];
+  noResults = false;
 
   get favorites() {
     if (this.filteredFavorites.length > 0) {
@@ -32,7 +40,13 @@ export default class PokemonFavorites extends Vue {
       this.filteredFavorites = pokemonStore.favorites.filter((pokemon) =>
         pokemon.name.toLowerCase().includes(query.toLowerCase())
       );
+      if (this.filteredFavorites.length === 0) {
+        this.noResults = true;
+      } else {
+        this.noResults = false;
+      }
     } else {
+      this.noResults = false;
       this.filteredFavorites = [];
     }
   }
@@ -40,8 +54,15 @@ export default class PokemonFavorites extends Vue {
 </script>
 
 <style scoped>
-.container {
+.flex-col {
   display: flex;
   flex-direction: column;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  justify-content: center;
 }
 </style>
