@@ -1,17 +1,24 @@
 <template>
   <div class="search-bar">
-    <input v-model="query" autofocus placeholder="Search Pokemon" />
+    <input
+      v-model="query"
+      :placeholder="placeholder"
+      :style="{ padding: padding }"
+      autofocus
+    />
     <button class="clear-button" @click="clearSearch">X</button>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from "vue-property-decorator";
+import { Component, Prop, Vue, Watch } from "vue-property-decorator";
 import { debounce } from "lodash";
 
 @Component
 export default class SearchBar extends Vue {
   query = "";
+  @Prop({ default: "Search" }) placeholder!: string;
+  @Prop({ default: "18px 0" }) padding!: string;
 
   debouncedInput = debounce((query: string) => {
     this.$emit("input", query);
@@ -47,7 +54,6 @@ $input-bg-color: #e5e5e5;
 
 input {
   width: 100%;
-  padding: 18px 0;
   border: none;
   outline: none;
   border-radius: 5px;

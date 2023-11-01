@@ -1,6 +1,9 @@
 <template>
   <header>
-    <SearchBar @input="onSearchTermChanged" />
+    <SearchBar
+      :placeholder="'Search for pokemon'"
+      @input="onSearchTermChanged"
+    />
 
     <router-link v-if="$route.name === 'favorites'" :to="{ name: 'home' }"
       >Home
