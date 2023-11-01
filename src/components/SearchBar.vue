@@ -30,11 +30,7 @@ export default class SearchBar extends Vue {
 
   @Watch("query")
   onQueryChanged(newQuery: string) {
-    if (newQuery === "") {
-      return;
-    } else {
-      this.debouncedInput(newQuery);
-    }
+    this.debouncedInput(newQuery);
   }
 }
 </script>
