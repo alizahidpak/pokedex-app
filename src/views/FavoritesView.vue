@@ -40,11 +40,7 @@ export default class PokemonFavorites extends Vue {
       this.filteredFavorites = pokemonStore.favorites.filter((pokemon) =>
         pokemon.name.toLowerCase().includes(query.toLowerCase())
       );
-      if (this.filteredFavorites.length === 0) {
-        this.noResults = true;
-      } else {
-        this.noResults = false;
-      }
+      this.noResults = this.filteredFavorites.length === 0;
     } else {
       this.noResults = false;
       this.filteredFavorites = [];
