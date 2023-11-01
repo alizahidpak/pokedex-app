@@ -1,5 +1,5 @@
 <template>
-  <main>
+  <main ref="mainElement">
     <TransitionFade>
       <BaseTable v-if="!loading && !notFound" :pokemon="pokemon" />
       <div v-else>
@@ -11,7 +11,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Ref, Vue } from "vue-property-decorator";
 import { BaseTable, LoaderPokeball, TransitionFade } from "@/components";
 import { pokemonStore } from "@/store/pokemon";
 
@@ -21,16 +21,12 @@ import { pokemonStore } from "@/store/pokemon";
     TransitionFade,
     LoaderPokeball,
   },
-
-  mounted() {
-    pokemonStore.getMaxPokemonCount().then(() => {
-      if (pokemonStore.pokemon.length === 0) {
-        pokemonStore.getMultipleRandomPokemon(5);
-      }
-    });
-  },
 })
 export default class PokemonSearchResult extends Vue {
+  @Ref("mainElement") readonly mainElement!: HTMLElement;
+
+  randomPokemonCount = 5;
+
   get pokemon() {
     return pokemonStore.pokemon;
   }
@@ -41,6 +37,35 @@ export default class PokemonSearchResult extends Vue {
 
   get notFound() {
     return pokemonStore.notFound;
+  }
+
+  mounted() {
+    this.updateRandomPokemonCount();
+    console.log(this.randomPokemonCount);
+    pokemonStore.getMaxPokemonCount().then(() => {
+      if (pokemonStore.pokemon.length === 0) {
+        pokemonStore.getMultipleRandomPokemon(this.randomPokemonCount);
+      }
+    });
+
+    window.addEventListener("resize", this.updateRandomPokemonCount);
+  }
+
+  beforeDestroy() {
+    window.removeEventListener("resize", this.updateRandomPokemonCount);
+  }
+
+  updateRandomPokemonCount() {
+    this.$nextTick(() => {
+      const mainHeight = this.mainElement.clientHeight;
+      // Temporary solution for the height of the table rows
+      const trHeight = 140;
+      this.randomPokemonCount = Math.floor(mainHeight / trHeight);
+
+      if (this.randomPokemonCount < 5) {
+        this.randomPokemonCount = 5;
+      }
+    });
   }
 }
 </script>
