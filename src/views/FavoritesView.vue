@@ -17,7 +17,7 @@ import { pokemonStore } from "@/store/pokemon";
   },
 })
 export default class PokemonFavorites extends Vue {
-  filteredFavorites: any[] = [];
+  filteredFavorites = [];
 
   get favorites() {
     if (this.filteredFavorites.length > 0) {

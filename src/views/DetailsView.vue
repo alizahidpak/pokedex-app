@@ -162,10 +162,6 @@ button {
   text-align: center;
 }
 
-.text-align-right {
-  text-align: right;
-}
-
 .moves-list ul,
 .games-list ul {
   display: flex;
