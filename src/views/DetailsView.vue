@@ -1,19 +1,21 @@
 <template>
   <main>
     <div v-if="pokemon" class="details-container">
-      <h2>{{ upperCaseFirstLetter(pokemon.name) }}</h2>
+      <h2 class="text-align-center">
+        {{ upperCaseFirstLetter(pokemon.name) }}
+      </h2>
       <div class="primary-information">
-        <div class="flex-small-gap">
+        <div class="grid--2">
           <div>
-            <p>Height:</p>
+            <p>Height</p>
             {{ pokemon.height }}
           </div>
           <div>
-            <p>Weight:</p>
+            <p>Weight</p>
             {{ pokemon.weight }}
           </div>
           <div>
-            <p>Types:</p>
+            <p>Types</p>
             <ul>
               <li v-for="item in pokemon.types" :key="item.type.name">
                 {{ upperCaseFirstLetter(item.type.name) }}
@@ -21,7 +23,7 @@
             </ul>
           </div>
           <div>
-            <p>Abilities:</p>
+            <p>Abilities</p>
             <ul>
               <li v-for="item in pokemon.abilities" :key="item.ability.name">
                 {{ upperCaseFirstLetter(item.ability.name) }}
@@ -29,7 +31,7 @@
             </ul>
           </div>
         </div>
-        <div>
+        <div class="img-box text-align-center">
           <img
             :alt="pokemon.name"
             :src="
@@ -38,40 +40,35 @@
           />
         </div>
         <div class="flex-small-gap">
-          <p>Stats:</p>
-          <ul>
-            <li v-for="item in pokemon.stats" :key="item.stat.name">
-              {{ upperCaseFirstLetter(item.stat.name) }}:
+          <ul class="grid--2">
+            <li
+              v-for="item in pokemon.stats"
+              :key="item.stat.name"
+              class="flex-col"
+            >
+              <p>{{ removeHyphens(item.stat.name) }}</p>
               {{ item.base_stat }}
             </li>
           </ul>
-          <div>
-            <p>Forms:</p>
-            <ul>
-              <li v-for="form in pokemon.forms" :key="form.name">
-                {{ upperCaseFirstLetter(form.name) }}
-              </li>
-            </ul>
-          </div>
         </div>
       </div>
-      <div class="games-list">
-        <p>Game indices:</p>
-        <br />
-        <ul>
-          <li v-for="game in pokemon.game_indices" :key="game.version.name">
-            {{ upperCaseFirstLetter(game.version.name) }}
-          </li>
-        </ul>
-      </div>
-      <div class="moves-list">
-        <p>Moves:</p>
-        <br />
-        <ul>
-          <li v-for="item in pokemon.moves" :key="item.move.name">
-            {{ upperCaseFirstLetter(item.move.name) }}
-          </li>
-        </ul>
+      <div class="secondary-information">
+        <div class="games-list">
+          <p class="text-align-center">Game indices</p>
+          <ul>
+            <li v-for="game in pokemon.game_indices" :key="game.version.name">
+              {{ upperCaseFirstLetter(game.version.name) }}
+            </li>
+          </ul>
+        </div>
+        <div class="moves-list">
+          <p class="text-align-center">Moves</p>
+          <ul class="grid--3">
+            <li v-for="item in pokemon.moves" :key="item.move.name">
+              {{ upperCaseFirstLetter(item.move.name) }}
+            </li>
+          </ul>
+        </div>
       </div>
       <ToggleButton :is-favorite="pokemon.isFavorite" :pokemon="pokemon" />
     </div>
@@ -105,15 +102,14 @@ export default class PokemonDetails extends Vue {
   upperCaseFirstLetter(name: string) {
     return useStringUtils().upperCaseFirstLetter(name);
   }
+
+  removeHyphens(name: string) {
+    return useStringUtils().removeHyphens(name);
+  }
 }
 </script>
 
 <style scoped>
-h2 {
-  font-size: 24px;
-  margin-bottom: 10px;
-}
-
 img {
   width: 200px;
 }
@@ -124,13 +120,13 @@ ul {
 }
 
 p {
+  color: #777;
   font-weight: 600;
 }
 
 button {
   position: absolute;
-  top: 2rem;
-  right: 2rem;
+  right: 1rem;
 }
 
 .details-container {
@@ -138,8 +134,36 @@ button {
   flex-direction: column;
   position: relative;
   gap: 2rem;
-  align-items: center;
-  padding-right: 1rem;
+  padding: 0 8rem;
+}
+
+.grid--2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.grid--3 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.flex-col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.5rem;
+}
+
+.text-align-center {
+  text-align: center;
+}
+
+.text-align-right {
+  text-align: right;
 }
 
 .moves-list ul,
@@ -148,18 +172,45 @@ button {
   flex-wrap: wrap;
   justify-content: center;
   gap: 1rem;
+  margin-top: 1rem;
 }
 
 .primary-information {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 1rem;
-  align-items: center;
+}
+
+.secondary-information {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
 }
 
 .flex-small-gap {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+}
+
+@media (max-width: 832px) {
+  .primary-information {
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+  }
+
+  .primary-information li {
+    align-items: flex-start;
+  }
+
+  .img-box {
+    grid-row: 1 / span 2;
+  }
+}
+
+@media (max-width: 592px) {
+  .primary-information {
+    grid-template-columns: 1fr;
+  }
 }
 </style>

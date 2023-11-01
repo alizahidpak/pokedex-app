@@ -10,7 +10,6 @@ export interface PokemonType {
   sprites: {
     front_default: string;
   };
-  forms?: NamedAttr[];
   game_indices?: GameIndex[];
   moves?: Move[];
   isFavorite?: boolean;
