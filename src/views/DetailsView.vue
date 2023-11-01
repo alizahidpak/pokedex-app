@@ -30,7 +30,12 @@
           </div>
         </div>
         <div>
-          <img :alt="pokemon.name" :src="pokemon.sprites.front_default" />
+          <img
+            :alt="pokemon.name"
+            :src="
+              pokemon.sprites.front_default || '/src/assets/images/pokeball.png'
+            "
+          />
         </div>
         <div class="flex-small-gap">
           <p>Stats:</p>

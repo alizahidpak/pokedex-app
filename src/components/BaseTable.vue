@@ -4,7 +4,12 @@
       <tr v-for="item in pokemon" :key="item.id">
         <td>
           <div class="primary-information" @click="goToDetails(item)">
-            <img :alt="item.name" :src="handleImage(item)" />
+            <img
+              :alt="item.name"
+              :src="
+                item.sprites.front_default || '/src/assets/images/pokeball.png'
+              "
+            />
             <p class="name">
               {{ upperCaseFirstLetter(item.name) }}
             </p>
@@ -45,12 +50,6 @@ export default class BaseTable extends Vue {
     type: Array,
   })
   readonly pokemon!: PokemonType[];
-
-  handleImage(pokemon: PokemonType) {
-    return (
-      pokemon.sprites.front_default || "/src/aessst / images / pokeball.png"
-    );
-  }
 
   goToDetails(pokemon: PokemonType) {
     this.$router.push({ name: "details", params: { name: pokemon.name } });
