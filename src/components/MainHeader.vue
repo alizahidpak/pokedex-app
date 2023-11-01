@@ -49,10 +49,11 @@ header {
   display: flex;
   align-items: center;
   color: white;
-  font-size: 1.5rem;
+  font-size: 2.4rem;
   font-weight: bold;
   gap: 2rem;
-  padding-bottom: 32px;
+  padding-bottom: 3.2rem;
   border-bottom: 1px solid #f1f1f1;
+  margin-bottom: 2rem;
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <main>
-    <div v-if="pokemon" class="details-container">
+    <div v-if="pokemon" class="container">
       <h2 class="text-align-center">
         {{ upperCaseFirstLetter(pokemon.name) }}
       </h2>
@@ -88,11 +88,6 @@ import { pokemonStore } from "@/store/pokemon";
   components: {
     ToggleButton,
   },
-
-  mounted() {
-    const name = this.$route.params.name;
-    pokemonStore.getPokemonDetailsByName(name);
-  },
 })
 export default class PokemonDetails extends Vue {
   get pokemon() {
@@ -106,12 +101,17 @@ export default class PokemonDetails extends Vue {
   removeHyphens(name: string) {
     return useStringUtils().removeHyphens(name);
   }
+
+  mounted() {
+    const name = this.$route.params.name;
+    pokemonStore.getPokemonDetailsByName(name);
+  }
 }
 </script>
 
 <style scoped>
 img {
-  width: 200px;
+  width: 20rem;
 }
 
 ul {
@@ -129,7 +129,7 @@ button {
   right: 1rem;
 }
 
-.details-container {
+.container {
   display: flex;
   flex-direction: column;
   position: relative;

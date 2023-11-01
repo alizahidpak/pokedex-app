@@ -71,8 +71,8 @@ td {
   display: grid;
   grid-template-columns: 1fr 1fr;
   align-items: center;
-  gap: 10px;
-  padding: 20px;
+  gap: 1rem;
+  padding: 2rem;
   text-align: left;
   border-bottom: 1px solid rgba(85, 85, 85, 0.5);
 }
@@ -82,19 +82,20 @@ tr:last-child td {
 }
 
 img {
-  width: 100px;
-  height: 100px;
+  width: 10rem;
+  height: 10rem;
 }
 
 ul {
   list-style: none;
   display: flex;
-  gap: 10px;
+  gap: 1rem;
   font-weight: 600;
 }
 
 .primary-information {
   display: flex;
+  gap: 1rem;
   align-items: center;
   cursor: pointer;
   font-weight: 600;
@@ -113,6 +114,6 @@ ul {
 .secondary-information div {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 1rem;
 }
 </style>

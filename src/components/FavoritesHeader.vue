@@ -1,8 +1,8 @@
 <template>
   <header>
-    <h1>Your Favorite Pokémon</h1>
+    <h1>Favorite Pokémon</h1>
     <SearchBar
-      :font-size="'1rem'"
+      :font-size="'1.6rem'"
       :padding="'0'"
       :placeholder="'Find in your favorites'"
       @input="onSearchTermChanged"
@@ -34,12 +34,12 @@ header {
   font-size: 1.5rem;
   font-weight: bold;
   gap: 2rem;
-  padding: 0 24px;
+  margin-right: 1rem;
 }
 
 h1 {
-  font-size: 24px;
-  margin-bottom: 10px;
+  font-size: 2.4rem;
+  margin-bottom: 1rem;
   white-space: nowrap;
 }
 

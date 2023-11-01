@@ -6,8 +6,8 @@
 
 <style lang="scss" scoped>
 .pokeball {
-  width: 100px;
-  height: 100px;
+  width: 10rem;
+  height: 10rem;
   background-image: url("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png");
   background-size: contain;
   background-position: center;

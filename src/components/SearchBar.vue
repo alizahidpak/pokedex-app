@@ -18,8 +18,8 @@ import { debounce } from "lodash";
 export default class SearchBar extends Vue {
   query = "";
   @Prop({ default: "Search" }) placeholder!: string;
-  @Prop({ default: "18px 0" }) padding!: string;
-  @Prop({ default: "1.2rem" }) fontSize!: string;
+  @Prop({ default: "1.8rem 0" }) padding!: string;
+  @Prop({ default: "2rem" }) fontSize!: string;
 
   debouncedInput = debounce((query: string) => {
     this.$emit("input", query);
@@ -42,10 +42,10 @@ $input-bg-color: #e5e5e5;
 .search-bar {
   display: flex;
   align-items: center;
-  padding: 12px 24px;
-  border-radius: 5px;
+  padding: 1.2rem 2.4rem;
+  border-radius: 0.5rem;
   background-color: $input-bg-color;
-  gap: 12px;
+  gap: 1.2rem;
   width: 100%;
 }
 
@@ -58,13 +58,10 @@ input {
 }
 
 .clear-button {
-  height: 2rem;
-  width: 2rem;
   background: none;
   border: none;
   cursor: pointer;
-  padding: 0;
   transition: 0.5s;
-  font-size: 1.4rem;
+  font-size: 2rem;
 }
 </style>
