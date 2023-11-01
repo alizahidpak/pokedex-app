@@ -36,12 +36,13 @@ class PokemonModule extends VuexModule {
   }
 
   @Action
-  async searchPokemonByName(query: string) {
+  async searchPokemon(query: string) {
     this.SET_LOADING(true);
     this.SET_POKEMON([]);
     const response = await fetch(
       `https://pokeapi.co/api/v2/pokemon/${query}`
     ).then((res) => res.json());
+    this.CHECK_FAVORITE(response);
     this.SET_LOADING(false);
     this.SET_POKEMON([response]);
   }
@@ -58,7 +59,9 @@ class PokemonModule extends VuexModule {
       if (response.status === 404) {
         return null;
       }
-      return await response.json();
+      const pokemon: PokemonType = await response.json();
+      this.CHECK_FAVORITE(pokemon);
+      return pokemon;
     };
 
     const fetchBatch = async (ids: number[]) => {
@@ -115,8 +118,7 @@ class PokemonModule extends VuexModule {
 
   @Mutation
   CHECK_FAVORITE(pokemon: PokemonType) {
-    const index = this.favorites.findIndex((p) => p.id === pokemon.id);
-    pokemon.isFavorite = index !== -1;
+    pokemon.isFavorite = this.favorites.some((p) => p.id === pokemon.id);
   }
 
   @Mutation
