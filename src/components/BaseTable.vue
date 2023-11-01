@@ -36,7 +36,6 @@
 import { Component, Prop, Vue } from "vue-property-decorator";
 import { useStringUtils } from "@/utils/string-utils";
 import { ToggleButton } from "@/components";
-import { pokemonStore } from "@/store/pokemon";
 import type { PokemonType } from "@/types";
 
 @Component({
@@ -53,7 +52,6 @@ export default class BaseTable extends Vue {
 
   goToDetails(pokemon: PokemonType) {
     this.$router.push({ name: "details", params: { name: pokemon.name } });
-    pokemonStore.SET_SELECTED_POKEMON(pokemon);
   }
 
   upperCaseFirstLetter(name: string) {

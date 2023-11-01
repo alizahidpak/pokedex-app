@@ -91,6 +91,11 @@ import { pokemonStore } from "@/store/pokemon";
   components: {
     ToggleButton,
   },
+
+  mounted() {
+    const name = this.$route.params.name;
+    pokemonStore.getPokemonDetailsByName(name);
+  },
 })
 export default class PokemonDetails extends Vue {
   get pokemon() {

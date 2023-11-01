@@ -27,8 +27,16 @@ class PokemonModule extends VuexModule {
     return { maxPokemon: response.count };
   }
 
+  @MutationAction
+  async getPokemonDetailsByName(name: string) {
+    const response = await fetch(
+      `https://pokeapi.co/api/v2/pokemon/${name}`
+    ).then((res) => res.json());
+    return { selectedPokemon: response };
+  }
+
   @Action
-  async searchPokemon(query: string) {
+  async searchPokemonByName(query: string) {
     this.SET_LOADING(true);
     this.SET_POKEMON([]);
     const response = await fetch(
