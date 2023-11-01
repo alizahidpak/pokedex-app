@@ -18,6 +18,7 @@ class PokemonModule extends VuexModule {
   );
   public maxPokemon = 0;
   public loading = false;
+  public notFound = false;
 
   @MutationAction
   async getMaxPokemonCount() {
@@ -40,12 +41,19 @@ class PokemonModule extends VuexModule {
   async searchPokemon(query: string) {
     this.SET_LOADING(true);
     this.SET_POKEMON([]);
-    const response = await fetch(
-      `https://pokeapi.co/api/v2/pokemon/${query}`
-    ).then((res) => res.json());
-    this.CHECK_FAVORITE(response);
-    this.SET_LOADING(false);
-    this.SET_POKEMON([response]);
+    const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${query}`);
+    if (response.status === 404) {
+      this.SET_LOADING(false);
+      this.SET_POKEMON([]);
+      this.SET_NOT_FOUND(true);
+      return;
+    } else {
+      this.SET_NOT_FOUND(false);
+      const pokemon: PokemonType = await response.json();
+      this.CHECK_FAVORITE(pokemon);
+      this.SET_LOADING(false);
+      this.SET_POKEMON([pokemon]);
+    }
   }
 
   @Action
@@ -125,6 +133,11 @@ class PokemonModule extends VuexModule {
   @Mutation
   SET_LOADING(loading: boolean) {
     this.loading = loading;
+  }
+
+  @Mutation
+  SET_NOT_FOUND(notFound: boolean) {
+    this.notFound = notFound;
   }
 }
 

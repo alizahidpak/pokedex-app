@@ -1,8 +1,11 @@
 <template>
   <main>
     <TransitionFade>
-      <BaseTable v-if="!loading" :pokemon="pokemon" />
-      <LoaderPokeball v-else />
+      <BaseTable v-if="!loading && !notFound" :pokemon="pokemon" />
+      <div v-else>
+        <h2 v-if="notFound">No Pokémon found</h2>
+        <LoaderPokeball v-else />
+      </div>
     </TransitionFade>
   </main>
 </template>
@@ -35,13 +38,22 @@ export default class PokemonSearchResult extends Vue {
   get loading() {
     return pokemonStore.loading;
   }
+
+  get notFound() {
+    return pokemonStore.notFound;
+  }
 }
 </script>
 
 <style lang="scss" scoped>
 main {
   display: flex;
+  justify-content: space-around;
   align-items: center;
   height: 100%;
+}
+
+h2 {
+  font-size: 2rem;
 }
 </style>

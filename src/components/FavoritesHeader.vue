@@ -10,8 +10,8 @@
   </header>
 </template>
 <script lang="ts">
-import SearchBar from "@/components/SearchBar.vue";
 import { Component, Vue } from "vue-property-decorator";
+import SearchBar from "@/components/SearchBar.vue";
 
 @Component({
   components: {
