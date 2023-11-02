@@ -25,7 +25,9 @@ import { pokemonStore } from "@/store/pokemon";
 export default class PokemonSearchResult extends Vue {
   @Ref("mainElement") readonly mainElement!: HTMLElement;
 
-  randomPokemonCount = 5;
+  get randomPokemonCount() {
+    return this.updateRandomPokemonCount();
+  }
 
   get pokemon() {
     return pokemonStore.pokemon;
@@ -40,32 +42,19 @@ export default class PokemonSearchResult extends Vue {
   }
 
   mounted() {
-    this.updateRandomPokemonCount();
-    console.log(this.randomPokemonCount);
     pokemonStore.getMaxPokemonCount().then(() => {
       if (pokemonStore.pokemon.length === 0) {
         pokemonStore.getMultipleRandomPokemon(this.randomPokemonCount);
       }
     });
-
-    window.addEventListener("resize", this.updateRandomPokemonCount);
-  }
-
-  beforeDestroy() {
-    window.removeEventListener("resize", this.updateRandomPokemonCount);
   }
 
   updateRandomPokemonCount() {
-    this.$nextTick(() => {
-      const mainHeight = this.mainElement.clientHeight;
-      // Temporary solution for the height of the table rows
-      const trHeight = 140;
-      this.randomPokemonCount = Math.floor(mainHeight / trHeight);
-
-      if (this.randomPokemonCount < 5) {
-        this.randomPokemonCount = 5;
-      }
-    });
+    const mainHeight = this.mainElement.clientHeight;
+    // Temporary solution for the height of the table rows
+    const trHeight = 140;
+    const maxRows = Math.floor(mainHeight / trHeight);
+    return maxRows < 5 ? 5 : maxRows;
   }
 }
 </script>
