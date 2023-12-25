@@ -257,8 +257,19 @@ button {
 }
 
 @media (max-width: 592px) {
-  .primary-information {
-    grid-template-columns: 1fr;
-  }
+    .primary-information {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+    }
+
+    .primary-information > .grid--2 > div {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .primary-information .grid--2 > :nth-child(2n) {
+        align-items: flex-end;
+        text-align: end;
+    }
 }
 </style>
