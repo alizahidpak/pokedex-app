@@ -1,31 +1,25 @@
 <template>
-  <header>
-    <SearchBar
-      :placeholder="'Search for pokemon'"
-      @input="onSearchTermChanged"
-    />
-
-    <router-link v-if="$route.name === 'favorites'" :to="{ name: 'home' }"
-      >Home
-    </router-link>
-
-    <router-link v-else-if="$route.name === 'home'" :to="{ name: 'favorites' }"
-      >Favorites
-    </router-link>
-
-    <a v-else href="#" @click="goBack">Back</a>
-  </header>
+    <header class="main-header">
+        <SearchBar
+            :placeholder="'Search for pokemon'"
+            @input="onSearchTermChanged"
+        />
+        <ToggleThemeButton />
+        <router-link :to="{ name: 'home' }">Home</router-link>
+        <router-link :to="{ name: 'favorites' }">Favorites</router-link>
+    </header>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import { SearchBar } from "@/components";
+import { SearchBar, ToggleThemeButton } from "@/components";
 import { pokemonStore } from "@/store/pokemon";
 
 @Component({
-  components: {
-    SearchBar,
-  },
+    components: {
+        ToggleThemeButton,
+        SearchBar,
+    },
 })
 export default class MainHeader extends Vue {
   onSearchTermChanged(query: string) {
@@ -45,15 +39,16 @@ export default class MainHeader extends Vue {
 </script>
 
 <style lang="scss" scoped>
-header {
-  display: flex;
-  align-items: center;
-  color: white;
-  font-size: 2.4rem;
-  font-weight: bold;
-  gap: 2rem;
-  padding-bottom: 3.2rem;
-  border-bottom: 1px solid #f1f1f1;
-  margin-bottom: 2rem;
+.main-header {
+    display: flex;
+    position: relative;
+    align-items: center;
+    color: white;
+    font-size: 2.4rem;
+    font-weight: bold;
+    gap: 4rem;
+    padding-bottom: 3.2rem;
+    border-bottom: 1px solid #f1f1f1;
+    margin: 4rem 0;
 }
 </style>

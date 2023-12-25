@@ -10,7 +10,7 @@
     --vt-c-indigo: #2c3e50;
 
     --vt-c-divider-light-1: rgba(60, 60, 60, 0.29);
-    --vt-c-divider-light-2: rgba(60, 60, 60, 0.12);
+    --vt-c-divider-light-2: rgba(60, 60, 60, 0.35);
     --vt-c-divider-dark-1: rgba(84, 84, 84, 0.65);
     --vt-c-divider-dark-2: rgba(84, 84, 84, 0.48);
 
@@ -33,7 +33,7 @@
 }
 
 @media (prefers-color-scheme: dark) {
-    :root {
+    :root:not(.light):not(.dark) {
         --color-background: var(--vt-c-black);
         --color-background-soft: var(--vt-c-black-soft);
         --color-background-mute: var(--vt-c-black-mute);
@@ -77,15 +77,15 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-    background: #f1f1f1;
+    background: var(--color-background-mute);
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #888;
+    background: var(--color-border);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: #555;
+    background: var(--color-border-hover);
 }
 
 * {
