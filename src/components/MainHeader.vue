@@ -22,19 +22,17 @@ import { pokemonStore } from "@/store/pokemon";
     },
 })
 export default class MainHeader extends Vue {
-  onSearchTermChanged(query: string) {
-    pokemonStore.SET_LOADING(true);
-    pokemonStore.searchPokemon(query).then(() => {
-      if (this.$route.name !== "home") {
-        this.$router.push({ name: "home" });
-      }
-    });
-  }
+    onSearchTermChanged(query: string) {
+        pokemonStore.SET_LOADING(true);
+        if (!query) pokemonStore.getNextBatch();
+        else pokemonStore.searchPokemon(query);
 
-  goBack() {
-    this.$router.go(-1);
-    pokemonStore.SET_SELECTED_POKEMON(null);
-  }
+        if (this.$route.name !== "home") this.$router.push({ name: "home" });
+    }
+
+    mounted() {
+        pokemonStore.getNextBatch();
+    }
 }
 </script>
 

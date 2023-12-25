@@ -1,73 +1,73 @@
 <template>
-  <main ref="mainElement">
-    <TransitionFade>
-      <BaseTable v-if="!loading && !notFound" :pokemon="pokemon" />
-      <div v-else>
-        <h2 v-if="notFound">No Pokémon found</h2>
-        <LoaderPokeball v-else />
-      </div>
-    </TransitionFade>
-  </main>
+    <main ref="mainElement">
+        <TransitionFade>
+            <div v-if="!notFound" key="list">
+                <TableBase :pokemon="pokemon" />
+                <LoaderPokeball v-if="loading" />
+            </div>
+            <div v-else key="not-found" class="not-found">
+                <h2>No Pokémon found</h2>
+            </div>
+        </TransitionFade>
+    </main>
 </template>
 
 <script lang="ts">
 import { Component, Ref, Vue } from "vue-property-decorator";
-import { BaseTable, LoaderPokeball, TransitionFade } from "@/components";
+import { TableBase, LoaderPokeball, TransitionFade } from "@/components";
 import { pokemonStore } from "@/store/pokemon";
 
 @Component({
-  components: {
-    BaseTable,
-    TransitionFade,
-    LoaderPokeball,
-  },
+    components: {
+        TableBase,
+        TransitionFade,
+        LoaderPokeball,
+    },
 })
 export default class PokemonSearchResult extends Vue {
-  @Ref("mainElement") readonly mainElement!: HTMLElement;
+    @Ref("mainElement") readonly mainElement!: HTMLElement;
 
-  get randomPokemonCount() {
-    return this.updateRandomPokemonCount();
-  }
+    get pokemon() {
+        return pokemonStore.pokemon;
+    }
 
-  get pokemon() {
-    return pokemonStore.pokemon;
-  }
+    get loading() {
+        return pokemonStore.loading;
+    }
 
-  get loading() {
-    return pokemonStore.loading;
-  }
+    get notFound() {
+        return pokemonStore.notFound;
+    }
 
-  get notFound() {
-    return pokemonStore.notFound;
-  }
+    handleScroll() {
+        const scrollPosition = this.mainElement.scrollTop;
+        const maxScroll = this.mainElement.scrollHeight;
+        const height = this.mainElement.clientHeight;
+        const atBottom = maxScroll - scrollPosition === height;
+        if (atBottom) {
+            pokemonStore.getNextBatch();
+        }
+    }
 
-  mounted() {
-    pokemonStore.getMaxPokemonCount().then(() => {
-      if (pokemonStore.pokemon.length === 0) {
-        pokemonStore.getMultipleRandomPokemon(this.randomPokemonCount);
-      }
-    });
-  }
+    mounted() {
+        this.mainElement.addEventListener("scroll", this.handleScroll);
+    }
 
-  updateRandomPokemonCount() {
-    const mainHeight = this.mainElement.clientHeight;
-    // Temporary solution for the height of the table rows
-    const trHeight = 140;
-    const maxRows = Math.floor(mainHeight / trHeight);
-    return maxRows < 5 ? 5 : maxRows;
-  }
+    beforeDestroy() {
+        this.mainElement.removeEventListener("scroll", this.handleScroll);
+    }
 }
 </script>
 
 <style lang="scss" scoped>
-main {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  height: 100%;
+.not-found {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
 }
 
 h2 {
-  font-size: 2rem;
+    font-size: 2rem;
 }
 </style>
