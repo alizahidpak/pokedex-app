@@ -4,7 +4,6 @@
     max-width: 128rem;
     height: 100vh;
     margin: 0 auto;
-    padding: 2rem;
     font-weight: normal;
     display: flex;
     flex-direction: column;
@@ -13,14 +12,14 @@
 a,
 .green {
     text-decoration: none;
-    color: hsla(160, 100%, 37%, 1);
+    color: hsl(32, 88%, 36%);
     transition: 0.4s;
 
 }
 
 @media (hover: hover) {
     a:hover {
-        background-color: hsla(160, 100%, 37%, 0.2);
+        background-color: hsla(32, 88%, 36%, 0.2);
     }
 }
 
@@ -31,5 +30,6 @@ html {
 main {
     flex: 1;
     overflow-y: auto;
+    margin-bottom: 2rem;
 }
 

@@ -1,41 +1,40 @@
 export interface PokemonType {
-  id: number;
-  name: string;
-  image: string;
-  height: number;
-  weight: number;
-  types: Type[];
-  abilities?: Ability[];
-  stats: Stat[];
-  sprites: {
-    front_default: string;
-  };
-  game_indices?: GameIndex[];
-  moves?: Move[];
-  isFavorite?: boolean;
+    id: number;
+    name: string;
+    height: number;
+    weight: number;
+    types: Type[];
+    abilities?: Ability[];
+    stats: Stat[];
+    sprites: {
+        front_default: string;
+    };
+    game_indices: GameIndex[];
+    moves: Move[];
+    isFavorite?: boolean;
 }
 
 export interface Type {
-  type: NamedAttr;
+    type: NamedAttr;
 }
 
 export interface Ability {
-  ability: NamedAttr;
+    ability: NamedAttr;
 }
 
 export interface Stat {
-  base_stat: number;
-  stat: NamedAttr;
+    base_stat: number;
+    stat: NamedAttr;
 }
 
 export interface GameIndex {
-  version: NamedAttr;
+    version: NamedAttr;
 }
 
 export interface Move {
-  move: NamedAttr;
+    move: NamedAttr;
 }
 
 export interface NamedAttr {
-  name: string;
+    name: string;
 }

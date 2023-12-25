@@ -1,13 +1,10 @@
 <template>
-  <div class="search-bar">
-    <input
-      v-model="query"
-      :placeholder="placeholder"
-      :style="{ padding: padding, fontSize: fontSize }"
-      autofocus
-    />
-    <button class="clear-button" @click="clearSearch">X</button>
-  </div>
+    <div :style="{ fontSize: fontSize }" class="search-bar">
+        <input v-model="query" :placeholder="placeholder" autofocus />
+        <button v-show="query !== ''" class="clear-button" @click="clearSearch">
+            X
+        </button>
+    </div>
 </template>
 
 <script lang="ts">
@@ -16,10 +13,9 @@ import { useCommonUtils } from "@/utils/common-utils";
 
 @Component
 export default class SearchBar extends Vue {
-  query = "";
-  @Prop({ default: "Search" }) placeholder!: string;
-  @Prop({ default: "1.8rem 0" }) padding!: string;
-  @Prop({ default: "2rem" }) fontSize!: string;
+    query = "";
+    @Prop({ default: "Search" }) placeholder!: string;
+    @Prop({ default: "2rem" }) fontSize!: string;
 
     commonUtils = useCommonUtils();
 
@@ -27,46 +23,56 @@ export default class SearchBar extends Vue {
         this.$emit("input", query);
     }, 600);
 
-  clearSearch() {
-    this.query = "";
-  }
+    clearSearch() {
+        this.query = "";
+    }
 
-  @Watch("query")
-  onQueryChanged(newQuery: string) {
-    this.debouncedInput(newQuery);
-  }
+    @Watch("query")
+    onQueryChanged(newQuery: string) {
+        this.debouncedInput(newQuery);
+    }
 }
 </script>
 
 <style lang="scss" scoped>
-$input-bg-color: #e5e5e5;
-
 .search-bar {
-  display: flex;
-  align-items: center;
-  padding: 1.2rem 2.4rem;
-  border-radius: 0.5rem;
-  background-color: $input-bg-color;
-  gap: 1.2rem;
-  width: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 1.2rem 2.4rem;
+    border-radius: 1rem;
+    border: 3px solid var(--color-border);
+    gap: 1.2rem;
+    width: 100%;
+    color: var(--color-text);
+    background-color: var(--vt-c-white-mute);
 }
 
 input {
-  width: 100%;
-  border: none;
-  outline: none;
-  border-radius: 5px;
-  background-color: $input-bg-color;
+    width: 100%;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    background: none;
+    font-size: inherit;
 }
 
 .clear-button {
-  width: 4.8rem;
-  height: 4.8rem;
-  background: none;
-  border: none;
-  cursor: pointer;
-  transition: 0.5s;
-  color: #555;
-  font-size: 3.2rem;
+    position: absolute;
+    height: 100%;
+    aspect-ratio: 1;
+    top: 50%;
+    right: 0;
+    transform: translate(0%, -50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: 0.5s;
+    color: rgba(85, 85, 85, 0.8);
+    font-size: inherit;
+}
+
+.clear-button:hover {
+    color: #000;
 }
 </style>
