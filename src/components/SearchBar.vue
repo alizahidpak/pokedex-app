@@ -12,7 +12,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from "vue-property-decorator";
-import { debounce } from "lodash";
+import { useCommonUtils } from "@/utils/common-utils";
 
 @Component
 export default class SearchBar extends Vue {
@@ -21,9 +21,11 @@ export default class SearchBar extends Vue {
   @Prop({ default: "1.8rem 0" }) padding!: string;
   @Prop({ default: "2rem" }) fontSize!: string;
 
-  debouncedInput = debounce((query: string) => {
-    this.$emit("input", query);
-  }, 600);
+    commonUtils = useCommonUtils();
+
+    debouncedInput = this.commonUtils.debounce((query: string) => {
+        this.$emit("input", query);
+    }, 600);
 
   clearSearch() {
     this.query = "";
