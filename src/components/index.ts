@@ -1,17 +1,21 @@
-import ToggleButton from "./ToggleButton.vue";
-import BaseTable from "./BaseTable.vue";
+import IconBase from "./IconBase.vue";
+import TransitionFade from "./TransitionFade.vue";
+import ToggleFavoriteButton from "./ToggleFavoriteButton.vue";
+import ToggleThemeButton from "./ToggleThemeButton.vue";
+import TableBase from "./TableBase.vue";
 import SearchBar from "./SearchBar.vue";
 import MainHeader from "./MainHeader.vue";
-import FavoritesHeader from "@/components/FavoritesHeader.vue";
-import TransitionFade from "./TransitionFade.vue";
+import FavoritesHeader from "./FavoritesHeader.vue";
 import LoaderPokeball from "./LoaderPokeball.vue";
 
 export {
-  ToggleButton,
-  BaseTable,
-  SearchBar,
-  MainHeader,
-  FavoritesHeader,
-  TransitionFade,
-  LoaderPokeball,
+    ToggleFavoriteButton,
+    ToggleThemeButton,
+    TableBase,
+    SearchBar,
+    MainHeader,
+    FavoritesHeader,
+    TransitionFade,
+    LoaderPokeball,
+    IconBase,
 };
